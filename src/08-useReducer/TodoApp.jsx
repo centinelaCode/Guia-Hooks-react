@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { todoReducer } from './todoReducer';
 import { TodoList } from './TodoList'
 import { TodoAdd } from './TodoAdd';
@@ -10,21 +10,31 @@ const initialState = [
     description: 'Recolectar la piedra del alma',
     done: false,
   },
-  {
-    id: new Date().getTime() * 3,
-    description: 'Recolectar la piedra del tiempo',
-    done: false,    
-  },
 ]
 
 
-export const TodoApp = () => {
+
+export const TodoApp = () => {  
+  // definimos el reducer
+  // se le pasa: nuestro reducer(todoReducer y el state inicial)
+  // obtenemos: el state(todos) y la funcion modificadora(dispatch)
+  // Al dispatch se le tien que pasar la action: la cual debe incluir el type y payload
+  const [ todos, dispatch ] = useReducer( todoReducer, initialState );
+
+
   
-  const [ todos, dispatch ] = useReducer( todoReducer, initialState )
 
   const handleNewTodo = ( todo ) => {
-    console.log({ todo })
+    const action = {
+      type: '[TODO] Add Todo',
+      payload: todo
+    }
+
+    dispatch( action );
   }
+
+
+
 
   return (
     <>
