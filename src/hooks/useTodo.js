@@ -17,9 +17,6 @@ export const useTodo = () => {
   // Al dispatch se le tien que pasar la action: la cual debe incluir el type y payload
   const [ todos, dispatch ] = useReducer( todoReducer, initialState, init );
 
-  
-  const pendingTodosCount = todos.filter(todo=> todo.done===false).length
-
   // El efecto para actualizar el Local Storage cuando carga y cuando cambian los todos
   useEffect(() => {
     console.log(todos);
