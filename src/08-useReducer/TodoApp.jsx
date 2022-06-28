@@ -4,13 +4,7 @@ import { TodoList } from './TodoList'
 import { TodoAdd } from './TodoAdd';
 
 // initial state reducer
-const initialState = [
-  // {
-  //   id: new Date().getTime(),
-  //   description: 'Recolectar la piedra del alma',
-  //   done: false,
-  // },
-]
+const initialState = [];
 
 const init = () => {
   return JSON.parse(localStorage.getItem('todos')) || [];
@@ -48,6 +42,14 @@ export const TodoApp = () => {
     })
   }
 
+  const onToggleTodo = ( id ) => {
+    // console.log({ id })
+    dispatch({
+      type: '[TODO] Toggle Todo',
+      payload: id
+    })
+  }
+
 
 
   return (
@@ -60,8 +62,8 @@ export const TodoApp = () => {
           <TodoList 
             todos={todos}
             onRemoveTodo={ id => handleRemoveTodo(id) }
-          />
-          
+            onToggleTodo={ id => onToggleTodo(id) }
+          />          
         </div>
 
         <div className="col-5">
@@ -73,7 +75,6 @@ export const TodoApp = () => {
           />
         </div>
       </div>
-
     </>
   )
 }

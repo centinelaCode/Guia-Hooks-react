@@ -1,5 +1,5 @@
 
-export const TodoItem = ({ todo , onRemoveTodo}) => {
+export const TodoItem = ({ todo , onRemoveTodo, onToggleTodo}) => {
 
 
   const buttonDeleteTodo = (e) => {
@@ -10,7 +10,11 @@ export const TodoItem = ({ todo , onRemoveTodo}) => {
   return (
     <>
       <li className="list-group-item d-flex justify-content-between">
-        <span className="align-self-center">{todo.description}</span>
+        <span 
+          onClick={ () => onToggleTodo( todo.id ) }
+          className={ todo.done ? 'align-self-center text-decoration-line-through text-muted' : 'align-self-center' }
+          >{todo.description}
+        </span>
         <button 
           className="btn btn-danger"
             onClick={() => onRemoveTodo(todo.id)}

@@ -1,7 +1,7 @@
 import { TodoItem } from "./TodoItem"
 
 
-export const TodoList = ({todos = [], onRemoveTodo}) => {
+export const TodoList = ({todos = [], onRemoveTodo, onToggleTodo}) => {
   
   return (
     <ul className="list-group">
@@ -12,6 +12,7 @@ export const TodoList = ({todos = [], onRemoveTodo}) => {
             key={ todo.id }
             todo={ todo}
             onRemoveTodo={ id => onRemoveTodo(id) }
+            onToggleTodo={ id => onToggleTodo(id) }
           />
         ))
       }
