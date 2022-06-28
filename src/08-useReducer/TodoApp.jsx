@@ -5,13 +5,16 @@ import { TodoAdd } from './TodoAdd';
 
 // initial state reducer
 const initialState = [
-  {
-    id: new Date().getTime(),
-    description: 'Recolectar la piedra del alma',
-    done: false,
-  },
+  // {
+  //   id: new Date().getTime(),
+  //   description: 'Recolectar la piedra del alma',
+  //   done: false,
+  // },
 ]
 
+const init = () => {
+  return JSON.parse(localStorage.getItem('todos')) || [];
+}
 
 
 export const TodoApp = () => {  
@@ -19,9 +22,14 @@ export const TodoApp = () => {
   // se le pasa: nuestro reducer(todoReducer y el state inicial)
   // obtenemos: el state(todos) y la funcion modificadora(dispatch)
   // Al dispatch se le tien que pasar la action: la cual debe incluir el type y payload
-  const [ todos, dispatch ] = useReducer( todoReducer, initialState );
+  const [ todos, dispatch ] = useReducer( todoReducer, initialState, init );
 
-
+  useEffect(() => {
+    console.log(todos);
+    localStorage.setItem('todos', JSON.stringify(todos));
+  
+    
+  }, [todos])
   
 
   const handleNewTodo = ( todo ) => {
