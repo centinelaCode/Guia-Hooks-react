@@ -1,60 +1,16 @@
-import { useEffect, useReducer } from 'react';
-import { todoReducer } from './todoReducer';
 import { TodoList } from './TodoList'
 import { TodoAdd } from './TodoAdd';
-
-// initial state reducer
-const initialState = [];
-
-const init = () => {
-  return JSON.parse(localStorage.getItem('todos')) || [];
-}
+import { useTodo } from '../hooks'
 
 
 export const TodoApp = () => {  
-  // definimos el reducer
-  // se le pasa: nuestro reducer(todoReducer y el state inicial)
-  // obtenemos: el state(todos) y la funcion modificadora(dispatch)
-  // Al dispatch se le tien que pasar la action: la cual debe incluir el type y payload
-  const [ todos, dispatch ] = useReducer( todoReducer, initialState, init );
-
-  useEffect(() => {
-    console.log(todos);
-    localStorage.setItem('todos', JSON.stringify(todos));
   
-    
-  }, [todos])
-  
-
-  const handleNewTodo = ( todo ) => {
-    const action = {
-      type: '[TODO] Add Todo',
-      payload: todo
-    }
-    dispatch( action );
-  }
-
-  const handleRemoveTodo = ( id ) => {
-    // console.log({ id })
-    dispatch({
-      type: '[TODO] Remove Todo',
-      payload: id
-    })
-  }
-
-  const onToggleTodo = ( id ) => {
-    // console.log({ id })
-    dispatch({
-      type: '[TODO] Toggle Todo',
-      payload: id
-    })
-  }
-
-
+  // llamamos el custom hook useTodo
+  const {todos, todosCount, pendingTodosCount, handleRemoveTodo, onToggleTodo, handleNewTodo} = useTodo();
 
   return (
     <>
-      <h1>TodoApp: 10 | <small>pendientes: 2</small></h1>
+      <h1>TodoApp: <span className="text-success">{ todosCount }</span> | <small>pendientes: <span className="text-danger">{ pendingTodosCount }</span></small></h1>
       <hr />
 
       <div className="row">

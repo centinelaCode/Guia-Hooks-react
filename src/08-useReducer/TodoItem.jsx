@@ -17,8 +17,8 @@ export const TodoItem = ({ todo , onRemoveTodo, onToggleTodo}) => {
         </span>
         <button 
           className="btn btn-danger"
-            onClick={() => onRemoveTodo(todo.id)}
-          >Borrar</button>    
+           onClick={() => onRemoveTodo(todo.id)}
+        >Borrar</button>    
       </li>
     </>
   )
